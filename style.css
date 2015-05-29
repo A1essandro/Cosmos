@@ -1,0 +1,11 @@
+body {
+    /*background: black;*/
+    margin: 0;
+    overflow: hidden;
+}
+
+.obj {
+    position: absolute;
+    background: black;
+    border-radius: 50%;
+}
