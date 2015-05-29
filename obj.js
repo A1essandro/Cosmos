@@ -11,7 +11,6 @@ Obj = function (id, weight, position) {
         y: 10 * Math.random() - 5
     };
     this.position = position;
-//    console.log(this.position);
 
     this.getDistance = function (v) {
         return Math.sqrt(Math.pow(v.x, 2) + Math.pow(v.y, 2));
@@ -63,6 +62,9 @@ Obj = function (id, weight, position) {
         this.div.remove();
         obj.splice(obj.indexOf(withObj), 1);
         obj.splice(obj.indexOf(this), 1);
+
+        if(nO.weight > biggest.weight)
+            biggest = nO;
     }
 
 };
