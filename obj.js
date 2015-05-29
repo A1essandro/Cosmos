@@ -40,10 +40,10 @@ Obj = function (id, weight, position) {
         }
     };
 
-    this.move = function () {
+    this.move = function (biggest) {
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;
-        this.div.css({top: (this.position.y - this.weight / 2) + 'px', left: (this.position.x - this.weight / 2) + 'px'});
+        this.div.css({top: (this.position.y - this.weight / 2) - biggest.position.y + midY + 'px', left: (this.position.x - this.weight / 2) - biggest.position.x + midX + 'px'});
     };
 
     this.collapse = function (withObj) {
