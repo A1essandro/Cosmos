@@ -1,3 +1,5 @@
+G = 1 / 100;
+
 Obj = function (id, weight, position) {
 
     this.weight = weight;
@@ -19,7 +21,7 @@ Obj = function (id, weight, position) {
     };
 
     this.getF = function (toObjWeight, distance) {
-        return this.weight * toObjWeight / Math.pow(distance, 2) / 1000;
+        return G * toObjWeight / Math.pow(distance, 2);
     };
 
     this.calculate = function (obj) {
