@@ -1,14 +1,16 @@
 Obj = function (id, weight, position) {
 
     this.weight = weight;
+    this.diameter = Math.pow(this.weight / (Math.PI * 4 / 3), 0.333) * 6
+
     this.id = id;
 
-    $('body').append('<div class="obj" id="obj' + id + '" style="width:' + weight + 'px; height:' + weight + 'px;"></div>');
+    $('body').append('<div class="obj" id="obj' + id + '" style="width:' + this.diameter + 'px; height:' + this.diameter + 'px;"></div>');
     this.div = $('#obj' + id);
 
     this.speed = {
-        x: 10 * Math.random() - 5,
-        y: 10 * Math.random() - 5
+        x: Math.random() - 0.5,
+        y: Math.random() - 0.5
     };
     this.position = position;
 
@@ -17,7 +19,7 @@ Obj = function (id, weight, position) {
     };
 
     this.getF = function (toObjWeight, distance) {
-        return this.weight * toObjWeight / Math.pow(distance, 2) / Math.pow(this.weight, 1.75);
+        return this.weight * toObjWeight / Math.pow(distance, 2) / 1000;
     };
 
     this.calculate = function (obj) {
@@ -29,7 +31,7 @@ Obj = function (id, weight, position) {
                 y: obj[o].position.y - this.position.y
             };
             distance = this.getDistance(vector);
-            if (distance < (obj[o].weight / 2 + this.weight / 2)) {
+            if (distance <= (obj[o].diameter / 2 + this.diameter / 2)) {
                 this.collapse(obj[o]);
                 return;
             }
@@ -42,7 +44,7 @@ Obj = function (id, weight, position) {
     this.move = function (biggest) {
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;
-        this.div.css({top: (this.position.y - this.weight / 2) - biggest.position.y + midY + 'px', left: (this.position.x - this.weight / 2) - biggest.position.x + midX + 'px'});
+        this.div.css({top: (this.position.y - this.diameter / 2) - biggest.position.y + midY + 'px', left: (this.position.x - this.diameter / 2) - biggest.position.x + midX + 'px'});
     };
 
     this.collapse = function (withObj) {
