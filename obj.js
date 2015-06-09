@@ -2,8 +2,9 @@ G = 1 / 100;
 
 Obj = function (id, weight, position) {
 
+    this.age = 0;
     this.weight = weight;
-    this.diameter = Math.pow(this.weight / (Math.PI * 4 / 3), 0.333) * 6
+    this.diameter = Math.pow(this.weight / (Math.PI * 4 / 3), 0.333) * 6;
 
     this.id = id;
 
@@ -44,9 +45,20 @@ Obj = function (id, weight, position) {
     };
 
     this.move = function (biggest) {
+        this.age++;
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;
-        this.div.css({top: (this.position.y - this.diameter / 2) - biggest.position.y + midY + 'px', left: (this.position.x - this.diameter / 2) - biggest.position.x + midX + 'px'});
+
+        var curPos = {
+            x: (this.position.x - this.diameter / 2) - biggest.position.x + midX,
+            y: (this.position.y - this.diameter / 2) - biggest.position.y + midY
+        };
+
+        this.div.css({top: curPos.y + 'px', left: curPos.x + 'px'});
+
+        if ((this.age % 10) === 0) {
+            $('body').append('<div class="path" id="path' + id + '-' + this.age + '" style="width:2px; height:2px;background:red;position:absolute;top:' + curPos.y + 'px;left:' + curPos.x + 'px"></div>');
+        }
     };
 
     this.collapse = function (withObj) {
@@ -67,8 +79,10 @@ Obj = function (id, weight, position) {
         obj.splice(obj.indexOf(withObj), 1);
         obj.splice(obj.indexOf(this), 1);
 
-        if(nO.weight > biggest.weight)
+        if (nO.weight > biggest.weight) {
+            $('.path').remove();
             biggest = nO;
+        }
     }
 
 };
