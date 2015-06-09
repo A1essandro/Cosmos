@@ -12,8 +12,8 @@ Obj = function (id, weight, position) {
     this.div = $('#obj' + id);
 
     this.speed = {
-        x: Math.random() - 0.5,
-        y: Math.random() - 0.5
+        x: 2.5 * (Math.random() - 0.5),
+        y: 2.5 * (Math.random() - 0.5)
     };
     this.position = position;
 
@@ -56,8 +56,15 @@ Obj = function (id, weight, position) {
 
         this.div.css({top: curPos.y + 'px', left: curPos.x + 'px'});
 
-        if ((this.age % 10) === 0) {
-            $('body').append('<div class="path" id="path' + id + '-' + this.age + '" style="width:2px; height:2px;background:red;position:absolute;top:' + curPos.y + 'px;left:' + curPos.x + 'px"></div>');
+        var curPos = {
+            x: (this.position.x - this.diameter / 2) - biggest.position.x + midX,
+            y: (this.position.y - this.diameter / 2) - biggest.position.y + midY
+        };
+
+        if ((this.age % 10) === 0 && biggest !== this) {
+            $('body').append('<div class="path path-' + this.id + '" id="path' + this.id + '-' + this.age + '" style="width:2px; height:2px;background:red;position:absolute;top:' + curPos.y + 'px;left:' + curPos.x + 'px"></div>');
+            var maxCount = parseInt(500 / obj.length);
+            $('.path-' + this.id + ':lt(-' + maxCount + ')').remove();
         }
     };
 
@@ -76,6 +83,8 @@ Obj = function (id, weight, position) {
         obj.push(nO);
         withObj.div.remove();
         this.div.remove();
+        $('.path-' + withObj.id).remove();
+        $('.path-' + this.id).remove();
         obj.splice(obj.indexOf(withObj), 1);
         obj.splice(obj.indexOf(this), 1);
 

@@ -4,8 +4,8 @@ midX = $(document).width() / 2;
 midY = $(document).height() / 2;
 biggest = null;
 
-for (i = 0; i < 7; i++)
-    obj[i] = new Obj(i, Math.random() * 20, {x: Math.random() * 500, y: Math.random() * 500});
+for (i = 0; i < 10; i++)
+    obj[i] = new Obj(i, Math.random() * 20, {x: Math.random() * 300, y: Math.random() * 300});
 
 setInterval(function () {
 
