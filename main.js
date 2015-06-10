@@ -5,7 +5,7 @@ midY = $(document).height() / 2;
 biggest = null;
 
 for (i = 0; i < 10; i++)
-    obj[i] = new Obj(i, Math.random() * 20, {x: Math.random() * 300, y: Math.random() * 300});
+    obj[i] = new Obj(i, Math.random() * (10 + i * 2), {x: Math.random() * 300, y: Math.random() * 300});
 
 setInterval(function () {
 

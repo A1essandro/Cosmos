@@ -1,4 +1,4 @@
-G = 1 / 100;
+G = 1 / 125;
 
 Obj = function (id, weight, position) {
 
