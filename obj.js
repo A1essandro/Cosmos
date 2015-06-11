@@ -64,6 +64,18 @@ Obj = function (id, weight, position) {
             var maxCount = parseInt(500 / obj.length);
             $('.path-' + this.id + ':lt(-' + maxCount + ')').remove();
         }
+
+        //отрисовка маркера направления движения
+        if (this === biggest) {
+            var speedPos = {
+                x: curPos.x + this.speed.x * 100,
+                y: curPos.y + this.speed.y * 100
+            };
+            $('#speedPos').css({
+                top: (speedPos.y + this.diameter / 2) + 'px',
+                left: (speedPos.x + this.diameter / 2) + 'px'
+            });
+        }
     };
 
     this.collapse = function (withObj) {

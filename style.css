@@ -19,3 +19,10 @@ body {
 #right-inputs-block input {
     width: 64px;
 }
+
+#speedPos {
+    width: 4px; 
+    height: 4px;
+    position: absolute;
+    background: gold;
+}
