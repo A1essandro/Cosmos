@@ -1,5 +1,3 @@
-G = 1 / 125;
-
 Obj = function (id, weight, position) {
 
     this.age = 0;

@@ -1,3 +1,5 @@
+G = 1 / parseInt($('#g-input').val());
+
 obj = [];
 
 midX = $(document).width() / 2;
@@ -24,5 +26,6 @@ setInterval(function () {
 
 }, 16);
 
-
-
+function changeG(input) {
+    G = 1 / $(input).val();
+}

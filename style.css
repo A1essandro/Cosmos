@@ -10,3 +10,12 @@ body {
     background: black;
     border-radius: 50%;
 }
+
+#right-inputs-block {
+    float: right;
+    padding: 10px;
+}
+
+#right-inputs-block input {
+    width: 64px;
+}
