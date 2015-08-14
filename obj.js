@@ -60,7 +60,7 @@ Obj = function (id, weight, position) {
         };
 
         if ((this.age % 10) === 0 && biggest !== this) {
-            $('body').append('<div class="path path-' + this.id + '" id="path' + this.id + '-' + this.age + '" style="width:2px; height:2px;background:red;position:absolute;top:' + curPos.y + 'px;left:' + curPos.x + 'px"></div>');
+            $('body').append('<div class="path path-' + this.id + '" id="path' + this.id + '-' + this.age + '" style="top:' + curPos.y + 'px;left:' + curPos.x + 'px"></div>');
             var maxCount = parseInt(500 / obj.length);
             $('.path-' + this.id + ':lt(-' + maxCount + ')').remove();
         }

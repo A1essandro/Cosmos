@@ -1,14 +1,22 @@
 body {
-    /*background: black;*/
+    background: #000022;
     margin: 0;
     overflow: hidden;
+    color: whitesmoke;
 }
 
 .obj {
     min-width: 2px;
     position: absolute;
-    background: black;
+    background: bisque;
     border-radius: 50%;
+}
+
+.path {
+    width: 2px;
+    height: 2px;
+    background: darkred;
+    position: absolute;
 }
 
 #right-inputs-block {
