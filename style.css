@@ -10,11 +10,14 @@ body {
     position: absolute;
     background: bisque;
     border-radius: 50%;
+/*    -webkit-box-shadow: inset -1px -1px 3px 1px rgba(92,51,0,0.5);
+    -moz-box-shadow: inset -1px -1px 3px 1px rgba(92,51,0,0.5);
+    box-shadow: inset -1px -1px 3px 1px rgba(92,51,0,0.5);*/
 }
 
 .path {
-    width: 2px;
-    height: 2px;
+    width: 1px;
+    height: 1px;
     background: darkred;
     position: absolute;
 }
@@ -29,8 +32,8 @@ body {
 }
 
 #speedPos {
-    width: 4px; 
-    height: 4px;
+    width: 2px; 
+    height: 2px;
     position: absolute;
     background: gold;
 }

@@ -6,8 +6,8 @@ midX = $(document).width() / 2;
 midY = $(document).height() / 2;
 biggest = null;
 
-for (i = 0; i < 10; i++)
-    obj[i] = new Obj(i, Math.random() * (10 + i * 2), {x: Math.random() * 300, y: Math.random() * 300});
+for (i = 0; i < 50; i++)
+    obj[i] = new Obj(i, Math.random() * (10 + i * 2), {x: Math.random() * 600, y: Math.random() * 600});
 
 setInterval(function () {
 
@@ -23,6 +23,8 @@ setInterval(function () {
 
     for (var o = 0; o < obj.length; o++)
         obj[o].move(biggest);
+
+    $('#objects-count').html(obj.length)
 
 }, 16);
 

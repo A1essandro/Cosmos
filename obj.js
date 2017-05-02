@@ -40,6 +40,11 @@ Obj = function (id, weight, position) {
             this.speed.x += f * vector.x;
             this.speed.y += f * vector.y;
         }
+
+        var style = 'inset -' + (this.diameter / 10) +'px -' + (this.diameter / 10) +'px ' + (this.diameter / 10) +'px 1px rgba(92,51,0,0.55)';
+        this.div.css('-webkit-box-shadow', style);
+        this.div.css('-moz-box-shadow', style);
+        this.div.css('box-shadow', style);
     };
 
     this.move = function (biggest) {
@@ -61,7 +66,7 @@ Obj = function (id, weight, position) {
 
         if ((this.age % 10) === 0 && biggest !== this) {
             $('body').append('<div class="path path-' + this.id + '" id="path' + this.id + '-' + this.age + '" style="top:' + curPos.y + 'px;left:' + curPos.x + 'px"></div>');
-            var maxCount = parseInt(500 / obj.length);
+            var maxCount = parseInt(1500 / obj.length);
             $('.path-' + this.id + ':lt(-' + maxCount + ')').remove();
         }
 

@@ -10,8 +10,14 @@
     </head>
     <body>
         <div id="right-inputs-block">
-            G = 1 / <input id="g-input" value="125" onchange="changeG(this);" type="number"/>
+            <div>
+                G = 1 / <input id="g-input" value="125" onchange="changeG(this);" type="number"/>
+            </div>
+            <div>
+                Objects: <span id="objects-count"></span>
+            </div>
         </div>
+
         <div id="speedPos"></div>
         <script src="main.js"></script>
     </body>
