@@ -6,8 +6,8 @@ midX = $(document).width() / 2;
 midY = $(document).height() / 2;
 biggest = null;
 
-for (i = 0; i < 50; i++)
-    obj[i] = new Obj(i, Math.random() * (10 + i * 2), {x: Math.random() * 600, y: Math.random() * 600});
+for (i = 0; i < 205; i++)
+    obj[i] = new Obj(i, Math.random() * (1 + i * 2), { x: Math.random() * 5000, y: Math.random() * 5000 });
 
 setInterval(function () {
 
@@ -31,3 +31,7 @@ setInterval(function () {
 function changeG(input) {
     G = 1 / $(input).val();
 }
+
+$(window).keyup(function (e) {
+    biggest = obj[Math.floor(Math.random() * obj.length)];
+});

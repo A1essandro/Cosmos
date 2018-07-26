@@ -1,18 +1,22 @@
-Obj = function (id, weight, position) {
+Obj = function (id, weight, position, speed) {
 
     this.age = 0;
     this.weight = weight;
-    this.diameter = Math.pow(this.weight / (Math.PI * 4 / 3), 0.333) * 6;
+    this.diameter = Math.pow(this.weight / (Math.PI * 4 / 3), 0.45);
 
     this.id = id;
 
     $('body').append('<div class="obj" id="obj' + id + '" style="width:' + this.diameter + 'px; height:' + this.diameter + 'px;"></div>');
     this.div = $('#obj' + id);
 
-    this.speed = {
-        x: 2.5 * (Math.random() - 0.5),
-        y: 2.5 * (Math.random() - 0.5)
-    };
+    if (!speed) {
+        this.speed = {
+            x: 2.5 * (Math.random() - 0.5),
+            y: 2.5 * (Math.random() - 0.5)
+        };
+    } else {
+        this.speed = speed;
+    }
     this.position = position;
 
     this.getDistance = function (v) {
@@ -20,7 +24,7 @@ Obj = function (id, weight, position) {
     };
 
     this.getF = function (toObjWeight, distance) {
-        return G * toObjWeight / Math.pow(distance, 2);
+        return G * (toObjWeight /* * this.weight*/) / Math.pow(distance, 2);
     };
 
     this.calculate = function (obj) {
@@ -32,7 +36,7 @@ Obj = function (id, weight, position) {
                 y: obj[o].position.y - this.position.y
             };
             distance = this.getDistance(vector);
-            if (distance <= (obj[o].diameter / 2 + this.diameter / 2)) {
+            if (distance <= (obj[o].diameter * 1.05 + this.diameter * 1.05)) {
                 this.collapse(obj[o]);
                 return;
             }
@@ -41,7 +45,7 @@ Obj = function (id, weight, position) {
             this.speed.y += f * vector.y;
         }
 
-        var style = 'inset -' + (this.diameter / 10) +'px -' + (this.diameter / 10) +'px ' + (this.diameter / 10) +'px 1px rgba(92,51,0,0.55)';
+        var style = 'inset -' + (this.diameter / 10) + 'px -' + (this.diameter / 10) + 'px ' + (this.diameter / 10) + 'px 1px rgba(92,51,0,0.55)';
         this.div.css('-webkit-box-shadow', style);
         this.div.css('-moz-box-shadow', style);
         this.div.css('box-shadow', style);
@@ -57,16 +61,12 @@ Obj = function (id, weight, position) {
             y: (this.position.y - this.diameter / 2) - biggest.position.y + midY
         };
 
-        this.div.css({top: curPos.y + 'px', left: curPos.x + 'px'});
+        this.div.css({ top: curPos.y + 'px', left: curPos.x + 'px' });
 
-        var curPos = {
-            x: (this.position.x - this.diameter / 2) - biggest.position.x + midX,
-            y: (this.position.y - this.diameter / 2) - biggest.position.y + midY
-        };
-
-        if ((this.age % 10) === 0 && biggest !== this) {
-            $('body').append('<div class="path path-' + this.id + '" id="path' + this.id + '-' + this.age + '" style="top:' + curPos.y + 'px;left:' + curPos.x + 'px"></div>');
-            var maxCount = parseInt(1500 / obj.length);
+        if ((this.age % 3) === 0 && biggest !== this) {
+            var dHalv = this.diameter / 2;
+            $('body').append('<div class="path path-' + this.id + '" id="path' + this.id + '-' + this.age + '" style="top:' + (curPos.y + dHalv) + 'px;left:' + (curPos.x + dHalv) + 'px"></div>');
+            var maxCount = parseInt(2500 / obj.length);
             $('.path-' + this.id + ':lt(-' + maxCount + ')').remove();
         }
 
@@ -84,17 +84,25 @@ Obj = function (id, weight, position) {
     };
 
     this.collapse = function (withObj) {
-
         if (withObj.weight > this.weight)
             position = withObj.position;
         else
             position = this.position;
 
-        nO = new Obj(this.id + '_' + withObj.id, withObj.weight + this.weight, position);
-        nO.speed = {
-            x: withObj.speed.x / this.weight + this.speed.x / withObj.weight,
-            y: withObj.speed.y / this.weight + this.speed.y / withObj.weight
-        }
+        var rel = Math.pow(1 / (this.weight / withObj.weight), 3);
+        var revRel = Math.pow(1 - rel, 3);
+        var speed = {
+            x: (withObj.speed.x * rel + this.speed.x * revRel) / 10,
+            y: (withObj.speed.y * rel + this.speed.y * revRel) / 10
+        };
+
+        speed = {x:0, y:0};
+
+        var thisSpeed = this.speed;
+        var otherSpeed = withObj.speed;
+        var res = speed;
+
+        nO = new Obj(this.id + '_' + withObj.id, withObj.weight + this.weight, position, speed);
         obj.push(nO);
         withObj.div.remove();
         this.div.remove();
@@ -103,10 +111,10 @@ Obj = function (id, weight, position) {
         obj.splice(obj.indexOf(withObj), 1);
         obj.splice(obj.indexOf(this), 1);
 
-        if (nO.weight > biggest.weight) {
-            $('.path').remove();
-            biggest = nO;
-        }
+        // if (nO.weight > biggest.weight) {
+        //     $('.path').remove();
+        //     biggest = nO;
+        // }
     }
 
 };
